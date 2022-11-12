@@ -1,5 +1,7 @@
 package com.example.hotel;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit2.Call;
@@ -9,12 +11,23 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.Base64;
 
 public class CreatePage extends AppCompatActivity {
 
@@ -23,6 +36,8 @@ public class CreatePage extends AppCompatActivity {
     private CheckBox bStatus;
     private Button btnCreate;
     private String status;
+    private ImageView image;
+    private String encodedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +48,12 @@ public class CreatePage extends AppCompatActivity {
         inCountPeoples =findViewById(R.id.CountPeopleInput);
         bStatus = findViewById(R.id.BoxStatus);
         btnCreate = findViewById(R.id.btn_create);
+        image = findViewById(R.id.img);
+
+        image.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            pickImg.launch(intent);        });
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +68,34 @@ public class CreatePage extends AppCompatActivity {
             }
         });
     }
+    private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            if (result.getData() != null) {
+                Uri uri = result.getData().getData();
+                try {
+                    InputStream is = getContentResolver().openInputStream(uri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    image.setImageBitmap(bitmap);
+                    encodedImage = encodeImage(bitmap);
+                } catch (Exception e) {
+
+                }
+            }
+        }
+    });
+    private String encodeImage(Bitmap bitmap) {
+        int prevW = 150;
+        int prevH = bitmap.getHeight() * prevW / bitmap.getWidth();
+        Bitmap b = Bitmap.createScaledBitmap(bitmap, prevW, prevH, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Base64.getEncoder().encodeToString(bytes);
+        }
+        return "";
+    }
+
     private void postData(String room, String countPeoples, boolean check) {
         if(check){
             status = "Занято";
@@ -67,7 +116,7 @@ public class CreatePage extends AppCompatActivity {
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
         // passing data from our text fields to our modal class.
-        DataStorage dataStorage = new DataStorage(Integer.parseInt(room), Integer.parseInt(countPeoples), status);
+        DataStorage dataStorage = new DataStorage(Integer.parseInt(room), Integer.parseInt(countPeoples), status, encodedImage);
 
         // calling a method to create a post and passing our modal class.
         Call<DataStorage> call = retrofitAPI.createPost(dataStorage);
@@ -98,4 +147,5 @@ public class CreatePage extends AppCompatActivity {
         });
 
     }
+    public void  gotoMain(View v){startActivity(new Intent(this,MainActivity.class)); finish();}
 }

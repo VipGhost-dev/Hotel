@@ -50,13 +50,34 @@
         android:id="@+id/btn_create"
         android:layout_width="345dp"
         android:layout_height="48dp"
-        android:text="Создать"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_style"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Создать"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="176dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BoxStatus"
-        app:layout_constraintVertical_bias="0.894" />
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <android.widget.Button
+        android:id="@+id/btn_back"
+        android:layout_width="345dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/btn_style"
+        android:onClick="gotoMain"
+        android:text="Назад"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_create" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@
         android:id="@+id/CountPeopleInput"
         android:layout_width="345dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Количество человек"
         android:importantForAutofill="no"
@@ -50,23 +50,46 @@
         android:id="@+id/btn_change"
         android:layout_width="345dp"
         android:layout_height="48dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/btn_style"
         android:text="Изменить"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BoxStatus" />
+        app:layout_constraintTop_toBottomOf="@+id/img" />
 
     <android.widget.Button
         android:id="@+id/btn_delete"
         android:layout_width="345dp"
         android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/btn_style"
         android:text="Удалить"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_change"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_change" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="176dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BoxStatus"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <android.widget.Button
+        android:id="@+id/btn_back"
+        android:layout_width="345dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_style"
+        android:onClick="gotoMain"
+        android:text="Назад"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_delete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

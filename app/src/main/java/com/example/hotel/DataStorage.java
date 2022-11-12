@@ -6,18 +6,21 @@ public class DataStorage {
     private Integer Room;
     private Integer Count_Peoples;
     private String Status;
+    private String Image;
 
-    public DataStorage(Integer ID,Integer Room, Integer Count_Peoples, String Status){
+    public DataStorage(Integer ID,Integer Room, Integer Count_Peoples, String Status, String Image){
         this.ID = ID;
         this.Room = Room;
         this.Count_Peoples = Count_Peoples;
         this.Status = Status;
+        this.Image = Image;
     }
 
-    public DataStorage(Integer Room, Integer Count_Peoples, String Status){
+    public DataStorage(Integer Room, Integer Count_Peoples, String Status, String Image){
         this.Room = Room;
         this.Count_Peoples = Count_Peoples;
         this.Status = Status;
+        this.Image = Image;
     }
 
     public Integer getID(){
@@ -50,5 +53,13 @@ public class DataStorage {
 
     public void setStatus(String Status){
         this.Status = Status;
+    }
+
+    public String getImage(){
+        return Image;
+    }
+
+    public void setImage(String Image){
+        this.Image = Image;
     }
 }

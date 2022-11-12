@@ -45,11 +45,28 @@ public class AdapterHotel extends BaseAdapter {
         TextView tRoom = v.findViewById(R.id.txtRoom);
         TextView tCountPeoples = v.findViewById(R.id.txtCountPeoples);
         TextView tStatus = v.findViewById(R.id.txtStatus);
+        ImageView img = v.findViewById(R.id.imgV);
         DataStorage dataStorage = hotelList.get(i);
         tRoom.setText(String.valueOf(dataStorage.getRoom()));
         tCountPeoples.setText(String.valueOf(dataStorage.getCount_Peoples()));
         tStatus.setText(dataStorage.getStatus());
-
+        if(dataStorage.getImage().equals("null")){
+            img.setImageResource(R.drawable.picture);
+        }
+        else {
+            img.setImageBitmap(getUserImage(dataStorage.getImage()));
+        }
         return v;
+    }
+    private Bitmap getUserImage(String encodedImg)
+    {
+        if(encodedImg!=null&& !encodedImg.equals("null")) {
+            byte[] bytes = Base64.decode(encodedImg, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        }
+        else
+        {
+            return null;
+        }
     }
 }

@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                             productJson.getInt("ID"),
                             productJson.getInt("Room"),
                             productJson.getInt("Count_Peoples"),
-                            productJson.getString("Status")
+                            productJson.getString("Status"),
+                            productJson.getString("Image")
                     );
                     listProduct.add(tempProduct);
                     pAdapter.notifyDataSetInvalidated();
