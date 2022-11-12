@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AdapterHotel pAdapter;
     private List<DataStorage> listProduct = new ArrayList<>();
+    public static Integer index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
         ivHotel.setAdapter(pAdapter); //Cвязывает подготовленный список с адаптером
 
         new GetProducts().execute(); //Подключение к нашей API в отдельном потоке
+
+        ivHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = (int) l;
+                startActivity(new Intent(MainActivity.this,ChangePage.class));
+                finish();
+            }
+        });
+
     }
     public class GetProducts extends AsyncTask<Void, Void, String> {
 
@@ -94,5 +106,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-public void  gotoaddRooms(View v){startActivity(new Intent(this,CreatePage.class));}
+public void  gotoaddRooms(View v){startActivity(new Intent(this,CreatePage.class)); finish();}
 }

@@ -48,7 +48,7 @@ public class CreatePage extends AppCompatActivity {
         });
     }
     private void postData(String room, String countPeoples, boolean check) {
-        if(check == true){
+        if(check){
             status = "Занято";
         }
         else{
@@ -85,6 +85,8 @@ public class CreatePage extends AppCompatActivity {
                 inCountPeoples.setText("");
                 bStatus.setChecked(false);
 
+                startActivity(new Intent(CreatePage.this, MainActivity.class));
+                finish();
             }
 
             @Override
@@ -94,6 +96,6 @@ public class CreatePage extends AppCompatActivity {
                 Toast.makeText(CreatePage.this, "Ошибка добавления", Toast.LENGTH_SHORT).show();
             }
         });
-        startActivity(new Intent(this, MainActivity.class));
+
     }
 }
