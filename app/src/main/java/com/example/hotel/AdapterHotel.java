@@ -46,8 +46,8 @@ public class AdapterHotel extends BaseAdapter {
         TextView tCountPeoples = v.findViewById(R.id.txtCountPeoples);
         TextView tStatus = v.findViewById(R.id.txtStatus);
         DataStorage dataStorage = hotelList.get(i);
-        tRoom.setText(Integer.toString(dataStorage.getRoom()));
-        tCountPeoples.setText(Integer.toString(dataStorage.getCount_Peoples()));
+        tRoom.setText(String.valueOf(dataStorage.getRoom()));
+        tCountPeoples.setText(String.valueOf(dataStorage.getCount_Peoples()));
         tStatus.setText(dataStorage.getStatus());
 
         return v;

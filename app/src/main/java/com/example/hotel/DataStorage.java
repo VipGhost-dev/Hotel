@@ -7,8 +7,14 @@ public class DataStorage {
     private Integer Count_Peoples;
     private String Status;
 
-    public DataStorage(Integer ID, Integer Room, Integer Count_Peoples, String Status){
+    public DataStorage(Integer ID,Integer Room, Integer Count_Peoples, String Status){
         this.ID = ID;
+        this.Room = Room;
+        this.Count_Peoples = Count_Peoples;
+        this.Status = Status;
+    }
+
+    public DataStorage(Integer Room, Integer Count_Peoples, String Status){
         this.Room = Room;
         this.Count_Peoples = Count_Peoples;
         this.Status = Status;
@@ -18,7 +24,7 @@ public class DataStorage {
         return ID;
     }
 
-    public void seetID(Integer ID){
+    public void setID(Integer ID){
         this.ID = ID;
     }
 

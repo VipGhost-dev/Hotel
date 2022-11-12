@@ -21,7 +21,7 @@
         android:importantForAutofill="no" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/BoxStatus"
         android:layout_width="345dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -47,7 +47,7 @@
         android:importantForAutofill="no" />
 
     <android.widget.Button
-        android:id="@+id/button"
+        android:id="@+id/btn_create"
         android:layout_width="345dp"
         android:layout_height="48dp"
         android:text="Создать"
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/BoxStatus"
         app:layout_constraintVertical_bias="0.894" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

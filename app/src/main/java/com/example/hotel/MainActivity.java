@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         new GetProducts().execute(); //Подключение к нашей API в отдельном потоке
     }
-    private class GetProducts extends AsyncTask<Void, Void, String> {
+    public class GetProducts extends AsyncTask<Void, Void, String> {
 
         @Override
         protected String doInBackground(Void... voids) {
