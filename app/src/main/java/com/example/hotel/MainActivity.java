@@ -11,8 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private AdapterHotel pAdapter;
     private List<DataStorage> listProduct = new ArrayList<>();
     public static Integer index;
+    public EditText searchtxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
         ivHotel.setAdapter(pAdapter); //Cвязывает подготовленный список с адаптером
 
         new GetProducts().execute(); //Подключение к нашей API в отдельном потоке
+
+        searchtxt = findViewById(R.id.Searchtxt);
+        searchtxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                new GetProducts().execute();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         ivHotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("https://ngknn.ru:5001/NGKNN/ЛедровЕИ/api/Hotels");//Строка подключения к нашей API
+                URL url = new URL("https://ngknn.ru:5001/NGKNN/ЛедровЕИ/api/apps/search?searchstring="+searchtxt.getText().toString());//Строка подключения к нашей API
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection(); //вызываем нашу API
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -85,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try
             {
+                listProduct.clear();
                 JSONArray tempArray = new JSONArray(s);//преоброзование строки в json массив
                 for (int i = 0;i<tempArray.length();i++)
                 {
